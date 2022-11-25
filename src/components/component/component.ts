@@ -9,6 +9,12 @@ export abstract class Component {
         this.element.innerHTML = this.template;
     }
 
+    addRender(selector: string) {
+        const e = document.querySelector(selector);
+        if (e === null) return;
+        this.element = e;
+        this.element.innerHTML += this.template;
+    }
     outRender(selector: string) {
         const e = document.querySelector(selector);
         if (e === null) return;
