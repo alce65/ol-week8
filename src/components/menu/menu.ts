@@ -14,7 +14,7 @@ export class Menu extends Component {
             .reduce((a, b) => a + b);
 
         return `
-        <nav>
+        <nav class="menu">
             <ul>
                 ${options}
             </ul>
