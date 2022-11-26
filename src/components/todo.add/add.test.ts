@@ -2,7 +2,6 @@ import { screen } from '@testing-library/dom';
 // adds special assertions like toHaveTextContent
 import '@testing-library/jest-dom';
 import userEvent from '@testing-library/user-event';
-import { Task } from '../../models/task';
 import { Add } from './add';
 
 describe('Given "Add" component', () => {
@@ -24,7 +23,7 @@ describe('Given "Add" component', () => {
         }
     );
 
-    describe('When data are provider in the form', () => {
+    describe('When data are provided in the form', () => {
         const mockTitle = 'Test task';
         const mockUser = 'Test user';
         test('Then data form could bee used ', async () => {
@@ -33,7 +32,7 @@ describe('Given "Add" component', () => {
             await user.type(elements[2], mockUser);
             expect(elements[1]).toHaveValue(mockTitle);
             expect(elements[2]).toHaveValue(mockUser);
-            await userEvent.click(elements[3]);
+            await user.click(elements[3]);
             expect(handleAdd).toHaveBeenCalled();
         });
     });

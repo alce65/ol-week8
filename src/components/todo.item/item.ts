@@ -1,4 +1,5 @@
 import { Task } from '../../models/task.js';
+import { consoleDebug } from '../../tools/debug.js';
 import { Component } from '../component/component.js';
 
 export class Item extends Component {
@@ -33,12 +34,12 @@ export class Item extends Component {
             id: this.item.id,
             isCompleted: !this.item.isCompleted,
         };
-        console.log('checked', result);
+        consoleDebug('checked: ' + result);
         this.updateTask(this.item.id, result);
     }
 
     handleButton() {
-        console.log('deleted');
+        consoleDebug('deleted');
         this.deleteTask(this.item.id);
     }
 
@@ -50,8 +51,8 @@ export class Item extends Component {
                 <span>${this.item.id}</span>
             </span>
             <span class="item-task__middle">
-                <span>${this.item.title}</span>
-                <span>${this.item.responsible}</span>
+                <output>${this.item.title}</output>
+                <output>${this.item.responsible}</output>
             </span>
             <span role="button" class="item-task__end button">
                 🗑️
