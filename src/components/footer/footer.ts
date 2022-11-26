@@ -1,13 +1,16 @@
 import { Component } from '../component/component.js';
 
 export class Footer extends Component {
-    constructor(selector: string) {
+    constructor(private selector: string) {
         super();
         this.template = this.createTemplate();
-        this.addRender(selector);
+        this.render();
+    }
+    render() {
+        super.addRender(this.selector);
     }
 
-    createTemplate() {
+    private createTemplate() {
         return `
         <footer>
             <address>

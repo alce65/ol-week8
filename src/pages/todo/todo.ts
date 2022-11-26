@@ -13,7 +13,7 @@ export class TodoPage extends Component {
         super.addRender(this.selector);
     }
 
-    createTemplate() {
+    private createTemplate() {
         return `
         <main>
             <h2>Tareas</h2>

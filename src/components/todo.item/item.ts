@@ -42,7 +42,7 @@ export class Item extends Component {
         this.deleteTask(this.item.id);
     }
 
-    createTemplate() {
+    private createTemplate() {
         return `
         <li class="item-task" id="item_${this.item.id}">
             <span class="item-task__start">

@@ -25,6 +25,6 @@ describe(`Given "Header" component,
     When it is instantiate with a invalid DOM selector`, () => {
     const result = new Header('.invalid');
     test('No element should be render', () => {
-        expect(result.addRender('.invalid')).toBeFalsy();
+        expect(result.render()).toBeFalsy();
     });
 });

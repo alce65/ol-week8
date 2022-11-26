@@ -53,6 +53,48 @@ Al disponer de una función que devuelve los datos podríamos hacerla asíncrona
 
 Por esta misma razón los objetos Task se desestructuran y reconstruyen para que sean objetos literales, como los que llegarían de una fuente externa.
 
+## Componentes
+
+Tanto las paginas como los elementos definidos en ellas son componentes basados en clases que extienden una clase "padre" **Component**
+
+En ella se declaran como métodos protegidos diversas formas de renderización, junto con un método público **render**
+Igualmente existe una propiedad protegida "template"
+
+```ts
+export abstract class Component {
+    protected template!: string;
+    private element!: Element;
+    render() {
+        return;
+    }
+    protected innRender(selector: string) {}
+    protected addRender(selector: string) {}
+    protected outRender(selector: string) {}
+}
+```
+
+Las clases "hijas" sobrescriben el render, utilizando alguna de las implementaciones protegidas en el padre
+
+Igualmente sobrescriben la propiedad **template**, con su propio template en cada caso y declaran una propiedad privada **selector** que toma valor a partir del argumento recibido en el constructor
+
+```ts
+import { Component } from '../component/component.js';
+
+export class Sample extends Component {
+    constructor(private selector: string) {
+        super();
+        this.template = this.createTemplate();
+        this.render();
+    }
+    render() {
+        super.innRender(this.selector);
+    }
+    private createTemplate() {
+        return ``;
+    }
+}
+```
+
 ## Página HTML
 
 Añadimos una nueva página, que se cargará desde el componente app
@@ -118,12 +160,6 @@ export class TodoPage extends Component {
     }
 }
 ```
-
-@TODO:
-
--   convertir el selector en propiedad de la clase en todos los componentes
--   sobrescribir en todos el render
--   hacer privados los render alternativos del padre
 
 ### Testing
 

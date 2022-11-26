@@ -23,6 +23,6 @@ describe(`Given "Sample" component,
     When it is instantiate with a invalid DOM selector`, () => {
     const result = new Sample('.invalid');
     test('No element should be render', () => {
-        expect(result.render('.invalid')).toBeFalsy();
+        expect(result.render()).toBeFalsy();
     });
 });

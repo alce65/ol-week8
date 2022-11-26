@@ -30,7 +30,7 @@ export class List extends Component {
     }
 
     render() {
-        super.render(this.selector);
+        super.innRender(this.selector);
     }
 
     addTask(task: Task) {
@@ -49,7 +49,7 @@ export class List extends Component {
         this.manageComponent();
     }
 
-    createTemplate() {
+    private createTemplate() {
         return `
         <section>
             <slot name="add"></slot>

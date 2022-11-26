@@ -1,9 +1,16 @@
 import { Component } from '../component/component.js';
 
 export class Sample extends Component {
-    constructor(selector: string) {
+    constructor(private selector: string) {
         super();
-        this.template = `<h1>Titulo Sample</h1>`;
-        this.render(selector);
+        this.template = this.createTemplate();
+        this.render();
+    }
+
+    render() {
+        super.innRender(this.selector);
+    }
+    private createTemplate() {
+        return `<h1>Titulo Sample</h1>`;
     }
 }

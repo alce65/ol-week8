@@ -45,7 +45,7 @@ export class Add extends Component {
         this.handleAdd({ ...newTask });
     }
 
-    createTemplate() {
+    private createTemplate() {
         return `
         <section>
             <h3>Añadir tarea</h3>

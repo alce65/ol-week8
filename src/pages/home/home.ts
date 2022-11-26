@@ -1,13 +1,17 @@
 import { Component } from '../../components/component/component.js';
 
 export class HomePage extends Component {
-    constructor(selector: string) {
+    constructor(private selector: string) {
         super();
         this.template = this.createTemplate();
-        this.addRender(selector);
+        this.render();
     }
 
-    createTemplate() {
+    render() {
+        super.addRender(this.selector);
+    }
+
+    private createTemplate() {
         return `
         <main>
             <h2>Home</h2>
