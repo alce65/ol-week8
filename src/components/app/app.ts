@@ -16,7 +16,11 @@ export class App {
         ];
         new Header('.root');
         new Menu('slot', this.menuOptions);
+        this.router();
+        new Footer('.root');
+    }
 
+    router() {
         const path = './' + location.pathname.split('/').at(-1);
         switch (path) {
             case this.menuOptions[0].path:
@@ -29,6 +33,5 @@ export class App {
                 new AboutPage('.root');
                 break;
         }
-        new Footer('.root');
     }
 }

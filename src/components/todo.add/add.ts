@@ -7,10 +7,17 @@ type DataFormType = {
 };
 
 export class Add extends Component {
-    constructor(selector: string, public handleAdd: (task: Task) => void) {
+    constructor(
+        private selector: string,
+        public handleAdd: (task: Task) => void
+    ) {
         super();
         this.template = this.createTemplate();
-        this.outRender(selector);
+        this.render();
+    }
+
+    render(): void {
+        super.outRender(this.selector);
         setTimeout(() => {
             document
                 .querySelector('form.add')
@@ -31,12 +38,11 @@ export class Add extends Component {
             ...formElement.querySelectorAll('[type="number"]'),
             ...formElement.querySelectorAll('select'),
         ];
-        const values = [...inputs].map(
+        [dataForm.title, dataForm.responsible] = [...inputs].map(
             (item) => (item as HTMLFormElement).value
         );
-        dataForm.title = values[0];
-        dataForm.responsible = values[1];
-        this.handleAdd(new Task(dataForm.title, dataForm.responsible));
+        const newTask = new Task(dataForm.title, dataForm.responsible);
+        this.handleAdd({ ...newTask });
     }
 
     createTemplate() {

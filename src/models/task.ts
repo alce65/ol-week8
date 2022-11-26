@@ -10,7 +10,7 @@ type TaskType = {
 export class Task implements TaskType {
     static generateId() {
         // return generateKey('hma')
-        return String(~~Math.random() * 1_000_000);
+        return String(~~(Math.random() * 1_000_000).toPrecision(6));
     }
     id: string;
     isCompleted: boolean;
