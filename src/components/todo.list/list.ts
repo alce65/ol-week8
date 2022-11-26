@@ -37,16 +37,19 @@ export class List extends Component {
         // Mutando el array this.tasks.push(task)
         this.tasks = [...this.tasks, task];
         this.manageComponent();
+        return this.tasks;
     }
     updateTask(id: string, data: Partial<Task>) {
         this.tasks = this.tasks.map((item) =>
             item.id === id ? { ...item, ...data } : item
         );
         this.manageComponent();
+        return this.tasks;
     }
     deleteTask(id: string) {
         this.tasks = this.tasks.filter((item) => item.id !== id);
         this.manageComponent();
+        return this.tasks;
     }
 
     private createTemplate() {
