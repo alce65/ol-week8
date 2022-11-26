@@ -1,11 +1,21 @@
 import { screen } from '@testing-library/dom';
 // adds special assertions like toHaveTextContent
 import '@testing-library/jest-dom';
+import { Task } from '../../models/task';
 import { Item } from './item';
 
 describe('Given "Item" component', () => {
     document.body.innerHTML = `<slot></slot>`;
-    new Item('slot');
+    new Item(
+        'slot',
+        new Task('', ''),
+        () => {
+            //
+        },
+        () => {
+            //
+        }
+    );
     const elements = [
         ...screen.getAllByRole('listitem'), // <li />
     ];
