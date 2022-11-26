@@ -1,5 +1,6 @@
 import { initializeTasks } from '../../mocks/tasks.js';
 import { Task } from '../../models/task.js';
+import { consoleDebug } from '../../tools/debug.js';
 import { Component } from '../component/component.js';
 import { Add } from '../todo.add/add.js';
 
@@ -12,7 +13,7 @@ export class List extends Component {
     }
 
     manageComponent() {
-        console.log(this.tasks);
+        consoleDebug(this.tasks);
         this.template = this.createTemplate();
         this.outRender(this.selector);
         new Add('slot[name="add"]', this.addTask.bind(this));
@@ -21,7 +22,7 @@ export class List extends Component {
     addTask(task: Task) {
         // Mutando el array this.tasks.push(task)
         this.tasks = [...this.tasks, task];
-        console.log(this.tasks);
+        consoleDebug(this.tasks);
         this.manageComponent();
     }
     updateTask(id: string, data: Partial<Task>) {

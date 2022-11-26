@@ -36,7 +36,6 @@ export class Add extends Component {
         );
         dataForm.title = values[0];
         dataForm.responsible = values[1];
-        console.log(dataForm);
         this.handleAdd(new Task(dataForm.title, dataForm.responsible));
     }
 
