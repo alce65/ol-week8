@@ -6,7 +6,7 @@ export class TodoPage extends Component {
         super();
         this.template = this.createTemplate();
         this.addRender(selector);
-        new List('slot');
+        new List('slot[name="todo"]');
     }
 
     createTemplate() {
