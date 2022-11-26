@@ -18,7 +18,6 @@ export class App {
         new Menu('slot', this.menuOptions);
 
         const path = './' + location.pathname.split('/').at(-1);
-        console.log({ path });
         switch (path) {
             case this.menuOptions[0].path:
                 new HomePage('.root');

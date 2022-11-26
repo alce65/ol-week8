@@ -14,16 +14,15 @@ jest.mock('../../pages/about/about.js');
 jest.mock('../../pages/todo/todo.js');
 
 describe('Given and instantiate "App" class', () => {
-    beforeEach(() => {
+    beforeAll(() => {
         global.window = Object.create(window);
-    });
-    describe.skip('When location include a pathname "./index.html"', () => {
         Object.defineProperty(window, 'location', {
-            value: {
-                pathname: './index.html',
-            },
+            value: {},
         });
+    });
+    describe('When location include a pathname "./index.html"', () => {
         test('Then the application components, included HomePage, should be instantiated ', () => {
+            global.window.location.pathname = './index.html';
             new App();
             expect(Header).toHaveBeenCalled();
             expect(Footer).toHaveBeenCalled();
@@ -32,23 +31,15 @@ describe('Given and instantiate "App" class', () => {
         });
     });
     describe('When location include a pathname "./todo.html"', () => {
-        Object.defineProperty(window, 'location', {
-            value: {
-                pathname: './todo.html',
-            },
-        });
         test('Then the component AboutPage, should be instantiated', () => {
+            global.window.location.pathname = './todo.html';
             new App();
             expect(TodoPage).toHaveBeenCalled();
         });
     });
     describe('When location include a pathname "./about.html"', () => {
-        Object.defineProperty(window, 'location', {
-            value: {
-                pathname: './about.html',
-            },
-        });
         test('Then the component AboutPage, should be instantiated', () => {
+            global.window.location.pathname = './about.html';
             new App();
             expect(AboutPage).toHaveBeenCalled();
         });
