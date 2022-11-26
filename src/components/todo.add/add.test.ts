@@ -1,15 +1,18 @@
 import { screen } from '@testing-library/dom';
 // adds special assertions like toHaveTextContent
 import '@testing-library/jest-dom';
+import userEvent from '@testing-library/user-event';
+import { Task } from '../../models/task';
 import { Add } from './add';
 
 describe('Given "Add" component', () => {
+    const handleAdd = jest.fn();
     document.body.innerHTML = `<slot></slot>`;
-    new Add('slot', () => {
-        //
-    });
+    new Add('slot', handleAdd);
     const elements = [
         screen.getByRole('heading', { name: 'Añadir tarea' }), // <h1>
+        ...screen.getAllByRole('textbox'), // <input>
+        screen.getByRole('button'),
     ];
     describe.each(elements)(
         'When it is call with a DOM implementation',
@@ -20,4 +23,18 @@ describe('Given "Add" component', () => {
             });
         }
     );
+
+    describe('When data are provider in the form', () => {
+        const mockTitle = 'Test task';
+        const mockUser = 'Test user';
+        test('Then data form could bee used ', async () => {
+            const user = userEvent.setup();
+            await user.type(elements[1], mockTitle);
+            await user.type(elements[2], mockUser);
+            expect(elements[1]).toHaveValue(mockTitle);
+            expect(elements[2]).toHaveValue(mockUser);
+            await userEvent.click(elements[3]);
+            expect(handleAdd).toHaveBeenCalled();
+        });
+    });
 });
