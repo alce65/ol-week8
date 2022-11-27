@@ -1,12 +1,17 @@
 import { Component } from '../../components/component/component.js';
 import { List } from '../../components/todo.list/list.js';
+import { consoleDebug } from '../../tools/debug.js';
 
 export class TodoPage extends Component {
     constructor(private selector: string) {
         super();
         this.template = this.createTemplate();
         this.render();
-        new List('.todo-wrapper');
+        try {
+            new List('.todo-wrapper');
+        } catch (error) {
+            consoleDebug((error as Error).message);
+        }
     }
 
     render() {

@@ -17,16 +17,20 @@ export class List extends Component {
         consoleDebug(this.tasks);
         this.template = this.createTemplate();
         this.render();
-        new Add('slot[name="add"]', this.addTask.bind(this));
-        this.tasks.forEach(
-            (item) =>
-                new Item(
-                    'ul.slot-items',
-                    item,
-                    this.updateTask.bind(this),
-                    this.deleteTask.bind(this)
-                )
-        );
+        try {
+            new Add('slot[name="add"]', this.addTask.bind(this));
+            this.tasks.forEach(
+                (item) =>
+                    new Item(
+                        'ul.slot-items',
+                        item,
+                        this.updateTask.bind(this),
+                        this.deleteTask.bind(this)
+                    )
+            );
+        } catch (error) {
+            consoleDebug((error as Error).message);
+        }
     }
 
     render() {

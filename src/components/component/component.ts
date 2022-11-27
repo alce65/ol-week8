@@ -9,13 +9,13 @@ export abstract class Component {
     // Renders use
     // footer innRender
     // header innRender
-    // todo.item innRender + setTimeout...
+    // task.item innRender + setTimeout...
     // pages innRender
-    // todo.list cleanHTML + innRender
+    // task.list cleanHTML + innRender
     // sample cleanHTML + innRender
 
     // menu outRender
-    // todo.add outRender + setTimeout...
+    // task.add outRender + setTimeout...
 
     protected innRender(selector: string) {
         try {
