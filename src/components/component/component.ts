@@ -12,6 +12,7 @@ export abstract class Component {
         }
         this.element = e;
         this.element.innerHTML = this.template;
+        return;
     }
 
     protected addRender(selector: string) {
@@ -21,6 +22,7 @@ export abstract class Component {
         }
         this.element = e;
         this.element.innerHTML += this.template;
+        return;
     }
     protected outRender(selector: string) {
         const e = document.querySelector(selector);
@@ -29,5 +31,6 @@ export abstract class Component {
         }
         this.element = e;
         this.element.outerHTML = this.template;
+        return;
     }
 }
