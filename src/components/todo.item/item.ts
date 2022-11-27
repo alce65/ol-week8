@@ -21,7 +21,7 @@ export class Item extends Component {
             const component = <HTMLElement>(
                 document.querySelector(`#item_${this.item.id}`)
             );
-            console.log(component);
+            console.log({ component });
             component
                 .querySelector('[type="checkbox"]')
                 ?.addEventListener('change', this.handleCheck.bind(this));
