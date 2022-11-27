@@ -23,7 +23,8 @@ describe('Given and instantiate "App" class', () => {
     describe('When location include a pathname "./index.html"', () => {
         test('Then the application components, included HomePage, should be instantiated ', () => {
             global.window.location.pathname = './index.html';
-            new App();
+            const app = new App();
+            expect(app).toBeInstanceOf(App);
             expect(Header).toHaveBeenCalled();
             expect(Footer).toHaveBeenCalled();
             expect(Menu).toHaveBeenCalled();

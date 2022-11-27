@@ -29,14 +29,11 @@ export class App {
         const path = './' + location.pathname.split('/').at(-1);
         switch (path) {
             case this.menuOptions[0].path:
-                new HomePage('.root');
-                break;
+                return new HomePage('.root');
             case this.menuOptions[1].path:
-                new TodoPage('.root');
-                break;
+                return new TodoPage('.root');
             case this.menuOptions[2].path:
-                new AboutPage('.root');
-                break;
+                return new AboutPage('.root');
         }
     }
 }

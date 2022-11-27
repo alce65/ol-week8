@@ -10,7 +10,7 @@ const menuOptionsMock: MenuOptionsType = [
 ];
 describe('Given "Menu" component', () => {
     document.body.innerHTML = `<slot></slot>`;
-    new Menu('slot', menuOptionsMock);
+    const menu = new Menu('slot', menuOptionsMock);
     const elements = [
         screen.getByRole('navigation'), // <nav class="menu"/>
         screen.getByRole('list'), // <ul />
@@ -18,6 +18,9 @@ describe('Given "Menu" component', () => {
         screen.getByRole('link', { name: 'Test option 1' }),
         screen.getByRole('link', { name: 'Test option 2' }),
     ];
+    test('Then we should to be able to instantiate it', () => {
+        expect(menu).toBeInstanceOf(Menu);
+    });
     describe.each(elements)(
         'When it is call with a DOM implementation',
         (element: HTMLElement) => {

@@ -5,11 +5,14 @@ import { Header } from './header';
 
 describe('Given "Header" component', () => {
     document.body.innerHTML = `<slot></slot>`;
-    new Header('slot');
+    const header = new Header('slot');
     const elements = [
         screen.getByRole('banner'), // <header />
         screen.getByRole('heading', { name: 'Learning Components' }), // <h1>
     ];
+    test('Then we should to be able to instantiate it', () => {
+        expect(header).toBeInstanceOf(Header);
+    });
     describe.each(elements)(
         'When it is instantiate with a DOM selector',
         (element: HTMLElement) => {

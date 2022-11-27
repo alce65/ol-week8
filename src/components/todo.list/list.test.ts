@@ -6,10 +6,13 @@ import { List } from './list';
 
 describe('Given "List" component', () => {
     document.body.innerHTML = `<slot></slot>`;
-    new List('slot');
+    const list = new List('slot');
     const elements = [
         screen.getByRole('heading', { name: 'Lita de tareas' }), // <h1>
     ];
+    test('Then we should to be able to instantiate it', () => {
+        expect(list).toBeInstanceOf(List);
+    });
     describe.each(elements)(
         'When it is call with a DOM implementation',
         (element: HTMLElement) => {

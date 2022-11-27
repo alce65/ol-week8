@@ -19,22 +19,17 @@ export abstract class Component {
     protected innRender(selector: string, position: 'start' | 'end' = 'end') {
         type validChild = 'firstElementChild' | 'lastElementChild';
         const positions = {
-            start: { position: 'afterbegin', chid: 'firstElementChild' },
-            end: { position: 'beforeend', chid: 'lastElementChild' },
+            start: { position: 'afterbegin', child: 'firstElementChild' },
+            end: { position: 'beforeend', child: 'lastElementChild' },
         };
         try {
             this.element = this.selectElement(selector);
-            // this.element.innerHTML += this.template;
             this.element.insertAdjacentHTML(
                 positions[position].position as InsertPosition,
                 this.template
             );
-            const c = positions[position].chid as validChild;
-            this.element = this.element[c] as Element;
-            console.log('Element', this.element);
-            console.log('Parent', this.element.parentElement);
-
-            // this.element = this.selectElement(selector).lastElementChild;
+            const child = positions[position].child as validChild;
+            this.element = this.element[child] as Element;
         } catch (error) {
             this.element = null;
         }

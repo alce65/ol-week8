@@ -5,10 +5,13 @@ import { Sample } from './sample';
 
 describe('Given "Sample" component', () => {
     document.body.innerHTML = `<slot></slot>`;
-    new Sample('slot');
+    const sample = new Sample('slot');
     const elements = [
         screen.getByRole('heading', { name: 'Titulo Sample' }), // <h1>
     ];
+    test('Then we should to be able to instantiate it', () => {
+        expect(sample).toBeInstanceOf(Sample);
+    });
     describe.each(elements)(
         'When it is call with a DOM implementation',
         (element: HTMLElement) => {

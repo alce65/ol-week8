@@ -7,12 +7,15 @@ import { Add } from './add';
 describe('Given "Add" component', () => {
     const handleAdd = jest.fn();
     document.body.innerHTML = `<slot></slot>`;
-    new Add('slot', handleAdd);
+    const add = new Add('slot', handleAdd);
     const elements = [
         screen.getByRole('heading', { name: 'Añadir tarea' }), // <h1>
         ...screen.getAllByRole('textbox'), // <input>
         screen.getByRole('button'),
     ];
+    test('Then we should to be able to instantiate it', () => {
+        expect(add).toBeInstanceOf(Add);
+    });
     describe.each(elements)(
         'When it is call with a DOM implementation',
         (element: HTMLElement) => {
