@@ -9,8 +9,9 @@ type TaskType = {
 
 export class Task implements TaskType {
     static generateId() {
-        // return generateKey('hma')
-        return String(~~(Math.random() * 1_000_000).toPrecision(6));
+        const aNumbers = new Uint32Array(1);
+        crypto.getRandomValues(aNumbers);
+        return ('000000' + aNumbers[0]).slice(-6);
     }
     id: string;
     isCompleted: boolean;
