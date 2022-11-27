@@ -34,6 +34,8 @@ export class App {
                 return new TodoPage('.root');
             case this.menuOptions[2].path:
                 return new AboutPage('.root');
+            default:
+                throw new Error('Path no disponible');
         }
     }
 }
