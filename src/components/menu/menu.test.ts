@@ -33,8 +33,10 @@ describe('Given "Menu" component', () => {
 });
 describe(`Given "Menu" component, 
     When it is instantiate with a invalid DOM selector`, () => {
-    const result = new Menu('.invalid', menuOptionsMock);
-    test('No element should be render', () => {
-        expect(result.render()).toBeFalsy();
+    test('No element should be render and an error should be throw', () => {
+        expect(() => {
+            const result = new Menu('.invalid', menuOptionsMock);
+            result.render();
+        }).toThrowError('Invalid selector');
     });
 });

@@ -24,8 +24,10 @@ describe('Given "Sample" component', () => {
 });
 describe(`Given "Sample" component, 
     When it is instantiate with a invalid DOM selector`, () => {
-    const result = new Sample('.invalid');
-    test('No element should be render', () => {
-        expect(result.render()).toBeFalsy();
+    test('No element should be render and an error should be throw', () => {
+        expect(() => {
+            const result = new Sample('.invalid');
+            result.render();
+        }).toThrowError('Invalid selector');
     });
 });

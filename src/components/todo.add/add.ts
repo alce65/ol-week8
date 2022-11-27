@@ -18,7 +18,6 @@ export class Add extends Component {
 
     render() {
         const element = super.innRender(this.selector, 'start');
-        if (!element) return null;
         element
             .querySelector('form.add')
             ?.addEventListener('submit', this.handleForm.bind(this));

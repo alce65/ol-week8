@@ -16,7 +16,6 @@ export class Item extends Component {
 
     render() {
         const element = super.innRender(this.selector);
-        if (!element) return null;
         element
             .querySelector('[type="checkbox"]')
             ?.addEventListener('change', this.handleCheck.bind(this));

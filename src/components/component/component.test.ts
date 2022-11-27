@@ -14,9 +14,11 @@ describe('Given a class that extends abstract class Component', () => {
                 return super.innRender('');
             }
         }
-        test('Then public render method should not return value', () => {
+        test('Then public render method should throw an error', () => {
             const testComponent = new Test();
-            expect(testComponent.render()).toBeFalsy();
+            expect(() => {
+                testComponent.render();
+            }).toThrowError('Invalid selector');
         });
     });
 });

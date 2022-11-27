@@ -22,26 +22,18 @@ export abstract class Component {
             start: { position: 'afterbegin', child: 'firstElementChild' },
             end: { position: 'beforeend', child: 'lastElementChild' },
         };
-        try {
-            this.element = this.selectElement(selector);
-            this.element.insertAdjacentHTML(
-                positions[position].position as InsertPosition,
-                this.template
-            );
-            const child = positions[position].child as validChild;
-            this.element = this.element[child] as Element;
-        } catch (error) {
-            this.element = null;
-        }
+        this.element = this.selectElement(selector);
+        this.element.insertAdjacentHTML(
+            positions[position].position as InsertPosition,
+            this.template
+        );
+        const child = positions[position].child as validChild;
+        this.element = this.element[child] as Element;
         return this.element;
     }
     protected cleanHtml(selector: string) {
-        try {
-            this.element = this.selectElement(selector);
-            this.element.innerHTML = '';
-        } catch (error) {
-            this.element = null;
-        }
+        this.element = this.selectElement(selector);
+        this.element.innerHTML = '';
         return this.element;
     }
 
