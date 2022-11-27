@@ -15,14 +15,14 @@ type TaskType = {
 };
 ```
 
-En caso de usar una clase, implementaríamos el tipo anterior y podríamos incluir un método estático de la clase que proporcionara los IDs. Igualmente inicializaríamos siempre en false la propiedad isCompleted de las tareas
-
-@TODO: sustituir el formato de creación de IDs por otro más seguro
+En caso de usar una clase, implementaríamos el tipo anterior y podríamos incluir un método estático de la clase que proporcionara los IDs como strings de 6 dígitos generados aleatoriamente. Igualmente inicializaríamos siempre en false la propiedad isCompleted de las tareas
 
 ```ts
 export class Task implements TaskType {
     static generateId() {
-        return String(~~(Math.random() * 1_000_000).toPrecision(6));
+        const aNumbers = new Uint32Array(1);
+        crypto.getRandomValues(aNumbers);
+        return ('000000' + aNumbers[0]).slice(-6);
     }
     id: string;
     isCompleted: boolean;
@@ -427,7 +427,7 @@ Al ser instanciado, el componente recibe como argumentos
 Estos métodos serán ejecutados en los manejadores de eventos del propio componente, en respuesta a las interacciones del usuario
 
 ```ts
-   handleCheck() {
+    handleCheck() {
         const result: Partial<Task> = {
             id: this.item.id,
             isCompleted: !this.item.isCompleted,
