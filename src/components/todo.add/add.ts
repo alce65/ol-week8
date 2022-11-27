@@ -19,7 +19,7 @@ export class Add extends Component {
     render() {
         const element = super.innRender(this.selector, 'start');
         element
-            .querySelector('form.add')
+            .querySelector('form.add-task')
             ?.addEventListener('submit', this.handleForm.bind(this));
         return element;
     }
@@ -48,7 +48,7 @@ export class Add extends Component {
         return `
         <section>
             <h3>Añadir tarea</h3>
-            <form class="add">
+            <form class="add-task">
                 <div>
                     <label for="title">Tarea</label>
                     <input type="text" name="title" id="title" placeholder="Describe la tarea" required>

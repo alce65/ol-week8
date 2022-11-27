@@ -6,6 +6,11 @@
     --footer-height: 3vh;
 }
 
+html {
+    font-family: Calibri, 'Gill Sans', 'Gill Sans MT', 'Trebuchet MS',
+        sans-serif;
+}
+
 body,
 .root {
     height: 100vh;
@@ -65,6 +70,18 @@ main {
 
 .hidden {
     display: none;
+}
+
+form.add-task label {
+    display: block;
+    padding-block-end: 0.5rem;
+}
+
+form.add-task input {
+    border: none;
+    border-block-end: 2px solid var(--light-gray);
+    width: 100%;
+    margin-block-end: 1rem;
 }
 
 ul.slot-items {
