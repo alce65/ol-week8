@@ -36,9 +36,9 @@ describe('Given "Item" component', () => {
             expect(elements[2]).toHaveValue(mockTitle);
             expect(elements[3]).toHaveValue(mockUser);
             await user.click(elements[1]);
-            expect(updateTask).toHaveBeenCalled();
+            expect(updateTask).toHaveBeenCalledTimes(1);
             await user.click(elements[4]);
-            expect(updateTask).toHaveBeenCalled();
+            expect(deleteTask).toHaveBeenCalledTimes(1);
         });
     });
 });
