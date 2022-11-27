@@ -10,7 +10,7 @@ export class TodoPage extends Component {
     }
 
     render() {
-        super.addRender(this.selector);
+        return super.innRender(this.selector);
     }
 
     private createTemplate() {

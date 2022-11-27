@@ -8,7 +8,8 @@ export class Sample extends Component {
     }
 
     render() {
-        super.innRender(this.selector);
+        super.cleanHtml(this.selector);
+        return super.innRender(this.selector);
     }
     private createTemplate() {
         return `<h1>Titulo Sample</h1>`;

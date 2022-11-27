@@ -8,7 +8,7 @@ export class Header extends Component {
     }
 
     render() {
-        super.addRender(this.selector);
+        return super.innRender(this.selector);
     }
 
     private createTemplate() {

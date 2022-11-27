@@ -30,7 +30,8 @@ export class List extends Component {
     }
 
     render() {
-        super.innRender(this.selector);
+        super.cleanHtml(this.selector);
+        return super.innRender(this.selector);
     }
 
     addTask(task: Task) {

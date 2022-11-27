@@ -15,10 +15,11 @@ export class Item extends Component {
     }
 
     render() {
-        super.addRender(this.selector);
+        const element = super.innRender(this.selector);
+        if (!element) return null;
         setTimeout(() => {
             const component = <HTMLElement>(
-                document.querySelector(`#item_${this.item.id}`)
+                element.querySelector(`#item_${this.item.id}`)
             );
             component
                 .querySelector('[type="checkbox"]')
@@ -27,6 +28,7 @@ export class Item extends Component {
                 .querySelector('[role="button"]')
                 ?.addEventListener('click', this.handleButton.bind(this));
         }, 100);
+        return element;
     }
 
     handleCheck() {

@@ -7,7 +7,7 @@ export class Footer extends Component {
         this.render();
     }
     render() {
-        super.addRender(this.selector);
+        return super.innRender(this.selector);
     }
 
     private createTemplate() {

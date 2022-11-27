@@ -8,7 +8,7 @@ export class AboutPage extends Component {
     }
 
     render() {
-        super.addRender(this.selector);
+        return super.innRender(this.selector);
     }
 
     private createTemplate() {
