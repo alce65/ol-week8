@@ -57,23 +57,22 @@ Por esta misma razón los objetos Task se desestructuran y reconstruyen para que
 
 Tanto las paginas como los elementos definidos en ellas son componentes basados en clases que extienden una clase "padre" **Component**
 
-En ella se declaran como métodos protegidos diversas formas de renderización, junto con un método público **render**
+En ella se declara como método protegidos les responsables de la renderización y de "limpiar" de contenido un eleemnto html, junto con un método público **render**
 Igualmente existe una propiedad protegida "template"
 
 ```ts
 export abstract class Component {
     protected template!: string;
-    private element!: Element;
+    private element!: Element | null;
     render() {
         return;
     }
-    protected innRender(selector: string) {}
-    protected addRender(selector: string) {}
-    protected outRender(selector: string) {}
+    protected innRender(selector: string, position: 'start' | 'end' = 'end') {}
+    protected cleanHtml(selector: string) {}
 }
 ```
 
-Las clases "hijas" sobrescriben el render, utilizando alguna de las implementaciones protegidas en el padre
+Las clases "hijas" sobrescriben el render, utilizando alguna de la implementación protegidas en el padre
 
 Igualmente sobrescriben la propiedad **template**, con su propio template en cada caso y declaran una propiedad privada **selector** que toma valor a partir del argumento recibido en el constructor
 
@@ -87,7 +86,8 @@ export class Sample extends Component {
         this.render();
     }
     render() {
-        super.innRender(this.selector);
+        super.cleanHtml(this.selector);
+        return super.innRender(this.selector);
     }
     private createTemplate() {
         return ``;
@@ -143,11 +143,15 @@ export class TodoPage extends Component {
         super();
         this.template = this.createTemplate();
         this.render();
-        new List('.todo-wrapper');
+        try {
+            new List('.todo-wrapper');
+        } catch (error) {
+            consoleDebug((error as Error).message);
+        }
     }
 
     render() {
-        super.addRender(this.selector);
+        return super.innRender(this.selector);
     }
 
     createTemplate() {
@@ -211,13 +215,16 @@ Los presentadores (componentes Item y Add): - tienen los detalles de interface e
 
 ### UI
 
-Se limita a proporcionar - un título - un contenedor de la lista (ul) - los slots necesarios para los otros componentes
+Se limita a proporcionar
+
+-   un título
+-   un contenedor de la lista (ul)
+-   los slots necesarios para los otros componentes (i.e la lista de items)
 
 ```ts
     createTemplate() {
         return `
         <section>
-            <slot name="add"></slot>
             <h3>Lita de tareas</h3>
             <ul class="slot-items"></ul>
         </section>
@@ -244,7 +251,7 @@ Las operaciones relativas al template y su renderización se encapsulan en un m�
         consoleDebug(this.tasks);
         this.template = this.createTemplate();
         this.render();
-        new Add('slot[name="add"]', this.addTask.bind(this));
+        new Add('section.tasks', this.addTask.bind(this));
         this.tasks.forEach(
             (item) =>
                 new Item(
@@ -263,22 +270,25 @@ Se definen los métodos que gestionan en estado (CRUD del array):
     -   update
     -   delete
 
-En los tres casos operaciones estándar sobre arrays seguidas de la actualización completa del tempate y su nueva renderización, empleándose para ello el método antes descrito
+En los tres casos operaciones estándar sobre arrays seguidas de la actualización completa del template y su nueva renderización, empleándose para ello el método antes descrito
 
 ```ts
     addTask(task: Task) {
         this.tasks = [...this.tasks, task];
         this.manageComponent();
+        return this.tasks;
     }
     updateTask(id: string, data: Partial<Task>) {
         this.tasks = this.tasks.map((item) =>
             item.id === id ? { ...item, ...data } : item
         );
         this.manageComponent();
+        return this.tasks;
     }
     deleteTask(id: string) {
         this.tasks = this.tasks.filter((item) => item.id !== id);
         this.manageComponent();
+        return this.tasks;
     }
 ```
 
@@ -318,13 +328,13 @@ El template del componente incluye el formulario que permite registrar nuevas ta
 El método de renderización sobrescribe el método de la clase padre, para completar el proceso asignado un manejador (handler) al evento submit del formulario
 
 ```ts
-    render(): void {
-        super.outRender(this.selector);
-        setTimeout(() => {
-            document
-                .querySelector('form.add')
-                ?.addEventListener('submit', this.handleForm.bind(this));
-        }, 100);
+    render() {
+        const element = super.innRender(this.selector, 'start');
+        if (!element) return null;
+        element
+            .querySelector('form.add')
+            ?.addEventListener('submit', this.handleForm.bind(this));
+        return element;
     }
 ```
 
@@ -400,18 +410,15 @@ El método de renderización sobrescribe el método de la clase padre, para comp
 
 ```ts
     render() {
-        super.addRender(this.selector);
-        setTimeout(() => {
-            const component = <HTMLElement>(
-                document.querySelector(`#item_${this.item.id}`)
-            );
-            component
-                .querySelector('[type="checkbox"]')
-                ?.addEventListener('change', this.handleCheck.bind(this));
-            component
-                .querySelector('[role="button"]')
-                ?.addEventListener('click', this.handleButton.bind(this));
-        }, 100);
+        const element = super.innRender(this.selector);
+        if (!element) return null;
+        element
+            .querySelector('[type="checkbox"]')
+            ?.addEventListener('change', this.handleCheck.bind(this));
+        element
+            .querySelector('[role="button"]')
+            ?.addEventListener('click', this.handleButton.bind(this));
+        return element;
     }
 
 ```

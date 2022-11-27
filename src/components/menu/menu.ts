@@ -12,7 +12,7 @@ export class Menu extends Component {
     }
 
     render() {
-        return super.outRender(this.selector);
+        return super.innRender(this.selector);
     }
 
     private createTemplate() {

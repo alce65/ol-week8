@@ -17,7 +17,6 @@ export class Header extends Component {
             <h1>
                 Learning Components
             </h1>
-            <slot name="menu"></slot>
         </header>
         `;
     }

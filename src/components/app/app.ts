@@ -17,7 +17,7 @@ export class App {
         ];
         try {
             new Header('.root');
-            new Menu('slot', this.menuOptions);
+            new Menu('header', this.menuOptions);
             this.router();
             new Footer('.root');
         } catch (error) {

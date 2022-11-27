@@ -17,13 +17,11 @@ export class Add extends Component {
     }
 
     render() {
-        const element = super.outRender(this.selector);
+        const element = super.innRender(this.selector, 'start');
         if (!element) return null;
-        setTimeout(() => {
-            document
-                .querySelector('form.add')
-                ?.addEventListener('submit', this.handleForm.bind(this));
-        }, 100);
+        element
+            .querySelector('form.add')
+            ?.addEventListener('submit', this.handleForm.bind(this));
         return element;
     }
 

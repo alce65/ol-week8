@@ -17,18 +17,12 @@ export class Item extends Component {
     render() {
         const element = super.innRender(this.selector);
         if (!element) return null;
-        setTimeout(() => {
-            const component = <HTMLElement>(
-                document.querySelector(`#item_${this.item.id}`)
-            );
-            console.log({ component });
-            component
-                .querySelector('[type="checkbox"]')
-                ?.addEventListener('change', this.handleCheck.bind(this));
-            component
-                .querySelector('[role="button"]')
-                ?.addEventListener('click', this.handleButton.bind(this));
-        }, 100);
+        element
+            .querySelector('[type="checkbox"]')
+            ?.addEventListener('change', this.handleCheck.bind(this));
+        element
+            .querySelector('[role="button"]')
+            ?.addEventListener('click', this.handleButton.bind(this));
         return element;
     }
 

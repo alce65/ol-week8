@@ -18,7 +18,7 @@ export class List extends Component {
         this.template = this.createTemplate();
         this.render();
         try {
-            new Add('slot[name="add"]', this.addTask.bind(this));
+            new Add('section.tasks', this.addTask.bind(this));
             this.tasks.forEach(
                 (item) =>
                     new Item(
@@ -59,8 +59,7 @@ export class List extends Component {
 
     private createTemplate() {
         return `
-        <section>
-            <slot name="add"></slot>
+        <section class="tasks">
             <h3>Lita de tareas</h3>
             <ul class="slot-items"></ul>
         </section>
