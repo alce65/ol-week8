@@ -60,7 +60,7 @@ export class List extends Component {
     private createTemplate() {
         return `
         <section class="tasks">
-            <h3>Lita de tareas</h3>
+            <h3>Lista de tareas</h3>
             <ul class="slot-items"></ul>
         </section>
         `;

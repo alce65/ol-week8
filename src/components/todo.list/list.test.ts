@@ -3,25 +3,43 @@ import { screen } from '@testing-library/dom';
 import '@testing-library/jest-dom';
 import { Task } from '../../models/task';
 import { List } from './list';
+import * as debug from '../../tools/debug.js';
+import { Add } from '../todo.add/add';
 
 describe('Given "List" component', () => {
-    document.body.innerHTML = `<slot></slot>`;
-    const list = new List('slot');
-    const elements = [
-        screen.getByRole('heading', { name: 'Lita de tareas' }), // <h1>
-    ];
-    test('Then we should to be able to instantiate it', () => {
-        expect(list).toBeInstanceOf(List);
+    describe('When it is instantiated with a valid selector', () => {
+        document.body.innerHTML = `
+            <slot name="slot1"></slot>
+            <slot name="slot2"></slot>`;
+        const list = new List('slot[name="slot1"]');
+        const elements = [
+            screen.getByRole('heading', { name: 'Lista de tareas' }), // <h3>
+            screen.getByRole('list'), // <ul />
+        ];
+        test('Then we should to be able to instantiate it', () => {
+            expect(list).toBeInstanceOf(List);
+        });
+        describe.each(elements)(
+            'When it is call with a DOM implementation',
+            (element: HTMLElement) => {
+                test(`Then ${element.tagName} should be render`, () => {
+                    expect(element).toBeInstanceOf(HTMLElement);
+                    expect(element).toBeInTheDocument();
+                });
+            }
+        );
     });
-    describe.each(elements)(
-        'When it is call with a DOM implementation',
-        (element: HTMLElement) => {
-            test(`Then ${element.tagName} should be render`, () => {
-                expect(element).toBeInstanceOf(HTMLElement);
-                expect(element).toBeInTheDocument();
-            });
-        }
-    );
+
+    describe('When the child component has a NON valid selector', () => {
+        Add.prototype.render = jest.fn().mockImplementation(() => {
+            throw new Error('Invalid selector');
+        });
+        const debugSpy = jest.spyOn(debug, 'consoleDebug');
+        const list = new List('slot[name="slot2"]');
+        expect(list).toBeInstanceOf(List);
+        expect(Add.prototype.render).toBeCalled();
+        expect(debugSpy).toBeCalled();
+    });
 
     describe('When its methods are called', () => {
         const mockTask = new Task('test', 'user');
