@@ -19,7 +19,7 @@ export class Item extends Component {
         if (!element) return null;
         setTimeout(() => {
             const component = <HTMLElement>(
-                element.querySelector(`#item_${this.item.id}`)
+                document.querySelector(`#item_${this.item.id}`)
             );
             component
                 .querySelector('[type="checkbox"]')
